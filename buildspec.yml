@@ -40,9 +40,15 @@ phases:
 
   post_build:
     commands:
+      - echo "=== AWS identity ==="
+      - aws sts get-caller-identity
+      - echo "=== kubectl context ==="
+      - kubectl config current-context
+      - kubectl get nodes
       - echo "Configuring kubectl for EKS"
       - aws eks update-kubeconfig --region ap-south-2 --name go-cidd-eks
       - echo "Applying Kubernetes manifests"
-      - kubectl apply -f k8s/namespace.yml
+      - echo "=== Applying namespace (debug) ==="
+      - kubectl apply -f k8s/namespace.yml --v=8
       - kubectl apply -f k8s/
 
