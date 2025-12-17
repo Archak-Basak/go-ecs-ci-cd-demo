@@ -48,8 +48,11 @@ phases:
      
       - echo "=== kubectl context ==="
       - kubectl config current-context
-      
+
+      - echo "=== Ensuring namespace exists ==="
+      - kubectl create namespace go-cidd-eks-ns --dry-run=client -o yaml | kubectl apply -f -
+    
       - echo "Applying Kubernetes manifests"
-      - kubectl apply -f k8s/namespace.yml
+     # - kubectl apply -f k8s/namespace.yml
       - kubectl apply -f k8s/
 
