@@ -29,21 +29,17 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - aws ecr get-login-password --region ap-south-2 |
-        docker login --username AWS --password-stdin \
-        481071950406.dkr.ecr.ap-south-2.amazonaws.com
+     - aws ecr get-login-password --region ap-south-2 | docker login --username AWS --password-stdin 481071950406.dkr.ecr.ap-south-2.amazonaws.com
+
 
   build:
     commands:
       - docker build -t go-cicd-demo .
-      - docker tag go-cicd-demo:latest \
-        481071950406.dkr.ecr.ap-south-2.amazonaws.com/go-cicd-demo:latest
-      - docker push \
-        481071950406.dkr.ecr.ap-south-2.amazonaws.com/go-cicd-demo:latest
+      - docker tag go-cicd-demo:latest 481071950406.dkr.ecr.ap-south-2.amazonaws.com/go-cicd-demo:latest
+      - docker push 481071950406.dkr.ecr.ap-south-2.amazonaws.com/go-cicd-demo:latest
 
   post_build:
     commands:
       - kubectl apply -f k8s/namespace.yml
       - kubectl apply -f k8s/
-
 
