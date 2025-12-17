@@ -48,7 +48,6 @@ phases:
      
       - echo "=== kubectl context ==="
       - kubectl config current-context
-      - kubectl get nodes
       
       - echo "Applying Kubernetes manifests"
       - kubectl apply -f k8s/namespace.yml
